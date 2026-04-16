@@ -6,4 +6,16 @@ this is minimal impementation of the RAG MODEL for the question answering
 ##### instal python  using miniconda 
 1) down adn install mininconda 
 2) create  a new env using the folowing comand 
-' conda -n mini-rag-app '
+
+```bash
+$ ' conda -n mini-rag-app '
+```
+
+## install the required packages 
+
+```bash
+$ cp .env.example .env
+```
+
+set your env variablesin the `.env` file . like `openai_api _key`
+
