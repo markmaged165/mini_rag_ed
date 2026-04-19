@@ -1,15 +1,16 @@
 from fastapi import FastAPI ,APIRouter
 import os
-
+from helpers.config import get_settings
 base_router =APIRouter(
     prefix='/api/v1',
     tags=['api_v1']
 )
 
 @base_router.get('/')
-def welcome ():
-    app_name =os.getenv('app_name')
-    app_ver=os.getenv('app_version')
+async def welcome ():
+    app_settings=get_settings()
+    app_name =app_settings.app_name
+    app_ver=app_settings.app_version
     return{
         'app_name':app_name ,
         'app_version':app_ver,
