@@ -4,6 +4,8 @@ class settings (BaseSettings):
     app_name: str
     app_version:str
     openai_api_key:str
+    file_allowed_types:list
+    file_max_size:int
 
     model_config = SettingsConfigDict(
         env_file=".env", 
@@ -11,7 +13,7 @@ class settings (BaseSettings):
         extra='ignore' # This prevents crashes if you have extra stuff in your .env
     )
     # class config :
-    #     env_file ='D:\mini_rag_ed\src\.env'
+    #     env_file ='.env'
 def get_settings():
     return settings()
 # print('done')
