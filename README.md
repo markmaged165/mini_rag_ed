@@ -13,6 +13,9 @@ $ ' conda -n mini-rag-app '
 
 ## install the required packages 
 
+````bash
+ $ pip install -r requirements.txt
+``````
 ```bash
 $ cp .env.example .env
 ```
@@ -21,5 +24,5 @@ set your env variablesin the `.env` file . like `openai_api _key`
 
 ## run the fastapi server 
 ```bash
-uvicorn main:app --reload --host 0.0.0.0 --port 5000
+$ uvicorn main:app --reload --host 0.0.0.0 --port 5000
 ```

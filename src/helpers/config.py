@@ -6,6 +6,7 @@ class settings (BaseSettings):
     openai_api_key:str
     file_allowed_types:list
     file_max_size:int
+    file_default_chunk_size: int
 
     model_config = SettingsConfigDict(
         env_file=".env", 
