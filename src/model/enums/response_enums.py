@@ -4,3 +4,5 @@ class responsesignal (Enum):
     FILE_SIZE_NOT_EXCEDED='file size not exceded '
     FILE_UPLOAD_FAILD ='file uploded faild'
     FILE_UPLOAD_SUCCESS ='file uploded sucsses '
+    FILE_PROCESS_FAILD ='file process faild'
+    FILE_PROCESS_SUCCESS ='file process sucsses '

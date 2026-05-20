@@ -2,10 +2,15 @@ from fastapi import FastAPI ,APIRouter , Depends , UploadFile,status
 from fastapi.responses import JSONResponse
 import os
 from helpers.config import get_settings ,settings
-from controllers import datacontrolar , projectcontrolar
+from controllers import datacontrolar , projectcontrolar , processcontrolar
 from model import responsesignal
 import aiofiles
 import logging
+from .schemes.data import processrequest
+
+
+
+
 
 logging.basicConfig(level=logging.INFO)
 
@@ -31,7 +36,7 @@ async def upload_data(project_id:str,file:UploadFile,
                 }
         )
     ## upload the file by chunks 
-    project_dir_path = projectcontrolar().git_project_path(project_id=project_id)
+    project_dir_path = projectcontrolar().get_project_path(project_id=project_id)
 
     file_path , file_id = datacontrolar().genrate_unique_filenmae(orig_name=file.filename
                             ,project_id=project_id
@@ -60,3 +65,26 @@ async def upload_data(project_id:str,file:UploadFile,
                 ,'file_id':file_id
                 }
             )
+
+@data_router.post("/process/{project_id}")
+async def process_endpoint(project_id:str , process_request:processrequest):
+    file_id =process_request.file_id
+    chunk_size = process_request.chunk_size
+    overlap_size = process_request.overlap_size
+    
+    process_controlar_instance = processcontrolar(project_id=project_id)    
+    file_content = process_controlar_instance.get_file_content(file_id=file_id)
+    file_chunks = process_controlar_instance.process_file_content(
+        file_content=file_content,
+        chunk_size=chunk_size,
+        overlap_size=overlap_size
+    )
+
+    if file_chunks is None or len(file_chunks) == 0:
+        return JSONResponse( 
+            status_code=status.HTTP_400_BAD_REQUEST ,
+            content={
+                "signal":responsesignal.FILE_PROCESS_FAILD.value
+                }
+        )
+    return file_chunks

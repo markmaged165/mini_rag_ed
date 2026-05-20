@@ -5,7 +5,7 @@ import os
 class projectcontrolar(basecontrolar):
     def __init__(self):
         super().__init__()
-    def git_project_path(self,project_id:str):
+    def get_project_path(self,project_id:str):
         project_dir= self.file_dir= os.path.join(
             self.file_dir,
             project_id
