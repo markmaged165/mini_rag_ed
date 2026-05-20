@@ -17,14 +17,14 @@ class datacontrolar (basecontrolar):
     
 
     def genrate_unique_filenmae(self,orig_name:str,project_id:str):
-        random_filename=self.generate_random_string()
+        raddom_key=self.generate_random_string()
         project_path= projectcontrolar().git_project_path(project_id)
         clean_filename =self.get_clean_filename(orig_name)
-        new_file_path=os.path.join(project_path,f"{clean_filename}_{random_filename}")
+        new_file_path=os.path.join(project_path,f"{clean_filename}_{raddom_key}")
         while os.path.exists(new_file_path):
-            random_filename=self.generate_random_string()
-            new_file_path=os.path.join(project_path,f"{clean_filename}_{random_filename}")
-        return new_file_path
+            raddom_key=self.generate_random_string()
+            new_file_path=os.path.join(project_path,f"{raddom_key}_{clean_filename}")
+        return new_file_path , raddom_key + '_'+ clean_filename
     
     def get_clean_filename(self,filename:str):
         clean_filename = re.sub(r'[^\w\.-]', '_', filename.split('.')[0])

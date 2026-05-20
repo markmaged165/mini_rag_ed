@@ -32,7 +32,8 @@ async def upload_data(project_id:str,file:UploadFile,
         )
     ## upload the file by chunks 
     project_dir_path = projectcontrolar().git_project_path(project_id=project_id)
-    file_path= datacontrolar().genrate_unique_filenmae(orig_name=file.filename
+
+    file_path , file_id = datacontrolar().genrate_unique_filenmae(orig_name=file.filename
                             ,project_id=project_id
                         )
 
@@ -56,5 +57,6 @@ async def upload_data(project_id:str,file:UploadFile,
     return JSONResponse( 
          {
                 "signal":responsesignal.FILE_UPLOAD_SUCCESS.value
+                ,'file_id':file_id
                 }
             )
