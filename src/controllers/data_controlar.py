@@ -18,7 +18,7 @@ class datacontrolar (basecontrolar):
 
     def genrate_unique_filenmae(self,orig_name:str,project_id:str):
         raddom_key=self.generate_random_string()
-        project_path= projectcontrolar().git_project_path(project_id)
+        project_path= projectcontrolar().get_project_path(project_id)
         clean_filename =self.get_clean_filename(orig_name)
         new_file_path=os.path.join(project_path,f"{clean_filename}_{raddom_key}")
         while os.path.exists(new_file_path):

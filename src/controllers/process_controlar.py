@@ -1,8 +1,9 @@
 from .base_controlar import basecontrolar
 from .project_controlar import projectcontrolar 
 import os
-from langchain_core.document_loaders import TextLoader, PyMuPDFLoader
+from langchain_community.document_loaders import TextLoader, PyMuPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+
 from model import processingenum
 
 
@@ -10,11 +11,11 @@ class processcontrolar (basecontrolar):
     def __init__(self,project_id:str):
         super().__init__()
         self.project_id =project_id
-        self.project_path =projectcontrolar().git_project_path(project_id)
+        self.project_path =projectcontrolar().get_project_path(project_id)
 
     def get_file_extension(self,file_id:str):
 
-        os.path.splitext(file_id)[-1]
+        return os.path.splitext(file_id)[-1]
 
 
     def get_file_loader (self ,file_id:str):
