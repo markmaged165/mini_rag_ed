@@ -20,6 +20,9 @@ data_router =APIRouter(
     tags=['api_v1','data']
 )
 
+######################## UPLOAD #######################################
+
+ 
 ##  multi_tenents
 @data_router.post("/upload/{project_id}")
 async def upload_data(project_id:str,file:UploadFile,
@@ -65,6 +68,9 @@ async def upload_data(project_id:str,file:UploadFile,
                 ,'file_id':file_id
                 }
             )
+
+######################## PROCESS #######################################
+
 
 @data_router.post("/process/{project_id}")
 async def process_endpoint(project_id:str , process_request:processrequest):

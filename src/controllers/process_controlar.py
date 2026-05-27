@@ -18,16 +18,21 @@ class processcontrolar (basecontrolar):
         return os.path.splitext(file_id)[-1]
 
 
-    def get_file_loader (self ,file_id:str):
-        
-        file_ext =self.get_file_extension(file_id)
+    def get_file_loader(self, file_id: str):
+        file_ext = self.get_file_extension(file_id)
 
         file_path = os.path.join(
-            self.project_id,
+            self.project_path, 
             file_id
         )
-        if file_ext == processingenum.TXT.value:
-            return TextLoader(file_path,encoding='utf-8')
+        
+        # ✨ DEBUG CHECK: Print this to your terminal to verify the file is really on your hard drive!
+        if not os.path.exists(file_path):
+            print(f"🚨 CRITICAL ERROR: The file is missing from the hard drive at: {file_path}")
+            return None # This will trigger your get_file_content HTTPException
+        
+        if file_ext == processingenum.TXT.value or file_ext == '':
+            return TextLoader(file_path, autodetect_encoding=True)
         
         if file_ext == processingenum.PDF.value:
             return PyMuPDFLoader(file_path)
